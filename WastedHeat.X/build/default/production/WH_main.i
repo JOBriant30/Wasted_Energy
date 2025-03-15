@@ -1939,8 +1939,8 @@ char *tempnam(const char *, const char *);
 void initADC(void);
 unsigned int readADC(unsigned char channel);
 void initUART(void);
-void sendUART(char data);
-void sendStringUART(const char* str);
+void UARTSendChar(char data);
+void UARTSendString(const char* str);
 
 void main(void) {
 
@@ -1948,22 +1948,24 @@ void main(void) {
     initUART();
 
     while (1) {
-        unsigned int adcValue = readADC(0);
+        unsigned int adcValue1 = readADC(0);
+        unsigned int adcValue2 = readADC(1);
 
 
-        char buffer[20];
-        sprintf(buffer, "ADC: %u\r\n", adcValue);
+        char buffer[50];
+        sprintf(buffer, "ADC1: %u, ADC2: %u\r\n", adcValue1, adcValue2);
 
 
-        sendStringUART(buffer);
+        UARTSendString(buffer);
 
-        _delay((unsigned long)((1000)*(16000000/4000.0)));
+
+        _delay((unsigned long)((100)*(16000000/4000.0)));
     }
 }
 
 void initADC(void) {
     ADCON0 = 0b00000001;
-    ADCON1 = 0b01010000;
+    ADCON1 = 0b00001110;
 }
 
 unsigned int readADC(unsigned char channel) {
@@ -1977,18 +1979,18 @@ unsigned int readADC(unsigned char channel) {
 void initUART(void) {
     TXSTAbits.SYNC = 0;
     TXSTAbits.BRGH = 1;
-    SPBRG = 51;
-    RCSTAbits.SPEN = 1;
+    SPBRG = 25;
     TXSTAbits.TXEN = 1;
+    RCSTAbits.SPEN = 1;
 }
 
-void sendUART(char data) {
+void UARTSendChar(char data) {
     while (!TXSTAbits.TRMT);
     TXREG = data;
 }
 
-void sendStringUART(const char* str) {
+void UARTSendString(const char* str) {
     while (*str) {
-        sendUART(*str++);
+        UARTSendChar(*str++);
     }
 }

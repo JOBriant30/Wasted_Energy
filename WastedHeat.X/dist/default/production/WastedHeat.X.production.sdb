@@ -25,16 +25,16 @@
 [v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
 "48 /home/jordan/MPLABXProjects/WastedHeat.X/WH_main.c
 [v _main main `(v  1 e 1 0 ]
-"67
+"69
 [v _initADC initADC `(v  1 e 1 0 ]
-"72
+"74
 [v _readADC readADC `(ui  1 e 2 0 ]
-"80
+"82
 [v _initUART initUART `(v  1 e 1 0 ]
-"88
-[v _sendUART sendUART `(v  1 e 1 0 ]
-"93
-[v _sendStringUART sendStringUART `(v  1 e 1 0 ]
+"90
+[v _UARTSendChar UARTSendChar `(v  1 e 1 0 ]
+"95
+[v _UARTSendString UARTSendString `(v  1 e 1 0 ]
 [s S78 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
@@ -81,72 +81,74 @@
 "48 /home/jordan/MPLABXProjects/WastedHeat.X/WH_main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"57
-[v main@buffer buffer `[20]uc  1 a 20 29 ]
+"58
+[v main@buffer buffer `[50]uc  1 a 50 0 ]
+"55
+[v main@adcValue2 adcValue2 `ui  1 a 2 52 ]
 "54
-[v main@adcValue adcValue `ui  1 a 2 49 ]
-"65
+[v main@adcValue1 adcValue1 `ui  1 a 2 50 ]
+"67
 } 0
 "9 /opt/microchip/xc8/v2.46/pic/sources/c99/common/nf_sprintf.c
 [v _sprintf sprintf `(i  1 e 2 0 ]
 {
 [v sprintf@s s `*.4uc  1 a 1 wreg ]
-[u S413 . 2 `*.1uc 1 buffer 2 0 `*.1DCuc 1 source 2 0 ]
+[u S414 . 2 `*.1uc 1 buffer 2 0 `*.1DCuc 1 source 2 0 ]
 "13
-[s S416 _IO_FILE 11 `S413 1 . 2 0 `i 1 count 2 2 `[3]uc 1 ungetbuf 3 4 `i 1 ungetcnt 2 7 `i 1 limit 2 9 ]
-[v sprintf@f f `S416  1 a 11 15 ]
+[s S417 _IO_FILE 11 `S414 1 . 2 0 `i 1 count 2 2 `[3]uc 1 ungetbuf 3 4 `i 1 ungetcnt 2 7 `i 1 limit 2 9 ]
+[v sprintf@f f `S417  1 a 11 17 ]
 "12
-[v sprintf@ap ap `[1]*.4v  1 a 1 13 ]
+[v sprintf@ap ap `[1]*.4v  1 a 1 15 ]
 "9
 [v sprintf@s s `*.4uc  1 a 1 wreg ]
 [v sprintf@fmt fmt `*.24DCuc  1 p 1 9 ]
 "15
-[v sprintf@s s `*.4uc  1 a 1 14 ]
+[v sprintf@s s `*.4uc  1 a 1 16 ]
 "23
 } 0
 "1817 /opt/microchip/xc8/v2.46/pic/sources/c99/common/doprnt.c
 [v _vfprintf vfprintf `(i  1 e 2 0 ]
 {
-[s S448 _IO_FILE 0 ]
-[v vfprintf@fp fp `*.4S448  1 a 1 wreg ]
+[s S449 _IO_FILE 0 ]
+[v vfprintf@fp fp `*.4S449  1 a 1 wreg ]
 "1820
 [v vfprintf@cfmt cfmt `*.24uc  1 a 1 8 ]
 "1817
-[v vfprintf@fp fp `*.4S448  1 a 1 wreg ]
+[v vfprintf@fp fp `*.4S449  1 a 1 wreg ]
 [v vfprintf@fmt fmt `*.24DCuc  1 p 1 12 ]
 [v vfprintf@ap ap `*.4*.4v  1 p 1 13 ]
 "1822
 "1817
-[v vfprintf@fp fp `*.4S448  1 a 1 7 ]
+[v vfprintf@fp fp `*.4S449  1 a 1 7 ]
 "1840
 } 0
 "1177
 [v _vfpfcnvrt vfpfcnvrt `(v  1 s 1 vfpfcnvrt ]
 {
-[s S448 _IO_FILE 0 ]
-[v vfpfcnvrt@fp fp `*.4S448  1 a 1 wreg ]
-[u S461 . 4 `i 1 sint 2 0 `ui 1 uint 2 0 `d 1 f 4 0 ]
+[s S449 _IO_FILE 0 ]
+[v vfpfcnvrt@fp fp `*.4S449  1 a 1 wreg ]
+[u S462 . 4 `i 1 sint 2 0 `ui 1 uint 2 0 `d 1 f 4 0 ]
 "1188
-[v vfpfcnvrt@convarg convarg `S461  1 a 4 1 ]
+[v vfpfcnvrt@convarg convarg `S462  1 a 4 1 ]
 "1179
 [v vfpfcnvrt@c c `uc  1 a 1 6 ]
 [v vfpfcnvrt@cp cp `*.24uc  1 a 1 5 ]
 "1177
-[v vfpfcnvrt@fp fp `*.4S448  1 a 1 wreg ]
+[v vfpfcnvrt@fp fp `*.4S449  1 a 1 wreg ]
 [v vfpfcnvrt@fmt fmt `*.4*.24uc  1 p 1 8 ]
 [v vfpfcnvrt@ap ap `*.4*.4v  1 p 1 9 ]
 "1201
 "1177
-[v vfpfcnvrt@fp fp `*.4S448  1 a 1 0 ]
+[v vfpfcnvrt@fp fp `*.4S449  1 a 1 0 ]
 "1814
 } 0
 "8 /opt/microchip/xc8/v2.46/pic/sources/c99/common/nf_fputc.c
 [v _fputc fputc `(i  1 e 2 0 ]
 {
 [v fputc@c c `i  1 p 2 0 ]
-[u S413 . 2 `*.1uc 1 buffer 2 0 `*.1DCuc 1 source 2 0 ]
-[s S416 _IO_FILE 11 `S413 1 . 2 0 `i 1 count 2 2 `[3]uc 1 ungetbuf 3 4 `i 1 ungetcnt 2 7 `i 1 limit 2 9 ]
-[v fputc@fp fp `*.4S416  1 p 1 2 ]
+[u S414 . 2 `*.1uc 1 buffer 2 0 `*.1DCuc 1 source 2 0 ]
+[s S417 _IO_FILE 11 `S414 1 . 2 0 `i 1 count 2 2 `[3]uc 1 ungetbuf 3 4 `i 1 ungetcnt 2 7 `i 1 limit 2 9 ]
+[v fputc@fp fp `*.4S417  1 p 1 2 ]
 "24
 } 0
 "7 /opt/microchip/xc8/v2.46/pic/sources/c99/common/putch.c
@@ -176,37 +178,37 @@
 [v ___lwdiv@dividend dividend `ui  1 p 2 2 ]
 "30
 } 0
-"93 /home/jordan/MPLABXProjects/WastedHeat.X/WH_main.c
-[v _sendStringUART sendStringUART `(v  1 e 1 0 ]
-{
-[v sendStringUART@str str `*.4DCuc  1 a 1 wreg ]
-[v sendStringUART@str str `*.4DCuc  1 a 1 wreg ]
-[v sendStringUART@str str `*.4DCuc  1 a 1 2 ]
-"97
-} 0
-"88
-[v _sendUART sendUART `(v  1 e 1 0 ]
-{
-[v sendUART@data data `uc  1 a 1 wreg ]
-[v sendUART@data data `uc  1 a 1 wreg ]
-[v sendUART@data data `uc  1 a 1 0 ]
-"91
-} 0
-"72
+"74 /home/jordan/MPLABXProjects/WastedHeat.X/WH_main.c
 [v _readADC readADC `(ui  1 e 2 0 ]
 {
 [v readADC@channel channel `uc  1 a 1 wreg ]
 [v readADC@channel channel `uc  1 a 1 wreg ]
 [v readADC@channel channel `uc  1 a 1 4 ]
-"78
-} 0
 "80
+} 0
+"82
 [v _initUART initUART `(v  1 e 1 0 ]
 {
-"86
+"88
 } 0
-"67
+"69
 [v _initADC initADC `(v  1 e 1 0 ]
 {
-"70
+"72
+} 0
+"95
+[v _UARTSendString UARTSendString `(v  1 e 1 0 ]
+{
+[v UARTSendString@str str `*.4DCuc  1 a 1 wreg ]
+[v UARTSendString@str str `*.4DCuc  1 a 1 wreg ]
+[v UARTSendString@str str `*.4DCuc  1 a 1 2 ]
+"99
+} 0
+"90
+[v _UARTSendChar UARTSendChar `(v  1 e 1 0 ]
+{
+[v UARTSendChar@data data `uc  1 a 1 wreg ]
+[v UARTSendChar@data data `uc  1 a 1 wreg ]
+[v UARTSendChar@data data `uc  1 a 1 0 ]
+"93
 } 0

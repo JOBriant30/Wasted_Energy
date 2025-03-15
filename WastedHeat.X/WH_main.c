@@ -42,8 +42,8 @@
 void initADC(void);
 unsigned int readADC(unsigned char channel);
 void initUART(void);
-void sendUART(char data);
-void sendStringUART(const char* str);
+void UARTSendChar(char data);
+void UARTSendString(const char* str);
 
 void main(void) {
     // Initialize ADC and UART
@@ -51,22 +51,24 @@ void main(void) {
     initUART();
 
     while (1) {
-        unsigned int adcValue = readADC(0); // Read from AN0 (channel 0)
-        
+        unsigned int adcValue1 = readADC(0); // Read from AN0 (Channel 0)
+        unsigned int adcValue2 = readADC(1); // Read from AN1 (Channel 1)
+
         // Prepare the string to send
-        char buffer[20];
-        sprintf(buffer, "ADC: %u\r\n", adcValue);
+        char buffer[50];
+        sprintf(buffer, "ADC1: %u, ADC2: %u\r\n", adcValue1, adcValue2);
         
-        // Send the ADC value over UART
-        sendStringUART(buffer);
+        // Send the ADC values over UART
+        UARTSendString(buffer);
         
-        __delay_ms(1000); // Delay for 1 second
+        // Reduce the delay for higher sampling rate
+        __delay_ms(100); // Adjust this value as needed for your application
     }
 }
 
 void initADC(void) {
-    ADCON0 = 0b00000001; // Configure AN0 (PIN 2) as analog input, others as digital.
-    ADCON1 = 0b01010000; // Right justified, Fosc/16
+    ADCON0 = 0b00000001; // Turn on the ADC and select AN0 (Channel 0)
+    ADCON1 = 0b00001110; // Configure AN0 and AN1 as analog inputs, others as digital
 }
 
 unsigned int readADC(unsigned char channel) {
@@ -74,24 +76,24 @@ unsigned int readADC(unsigned char channel) {
     __delay_ms(2); // Acquisition time
     GO_nDONE = 1; // Start conversion
     while (GO_nDONE); // Wait for conversion to complete
-    return ADRES; // Return the 10-bit result
+    return ADRES; // Return the 8-bit result
 }
 
 void initUART(void) {
-    TXSTAbits.SYNC = 0; // Asynchronous mode
+    TXSTAbits.SYNC = 0; // Set to asynchronous mode
     TXSTAbits.BRGH = 1; // High speed
-    SPBRG = 51; // Baud rate 9600 for 16 MHz
-    RCSTAbits.SPEN = 1; // Enable serial port
+    SPBRG = 25; // Set baud rate to 9600 for 16 MHz
     TXSTAbits.TXEN = 1; // Enable transmitter
+    RCSTAbits.SPEN = 1; // Enable serial port
 }
 
-void sendUART(char data) {
-    while (!TXSTAbits.TRMT); // Wait until the transmit register is empty
-    TXREG = data; // Transmit data
+void UARTSendChar(char data) {
+    while (!TXSTAbits.TRMT); // Wait until the transmit shift register is empty
+    TXREG = data; // Transmit the character
 }
 
-void sendStringUART(const char* str) {
+void UARTSendString(const char* str) {
     while (*str) {
-        sendUART(*str++); // Send each character
+        UARTSendChar(*str++); // Send each character
     }
 }
