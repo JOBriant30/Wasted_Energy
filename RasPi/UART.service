@@ -1,0 +1,14 @@
+[Unit]
+Description=UART Python Script Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /bin/UART.py
+WorkingDirectory=/tmp
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
